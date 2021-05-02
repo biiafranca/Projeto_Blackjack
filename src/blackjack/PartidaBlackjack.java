@@ -12,7 +12,6 @@ public class PartidaBlackjack {
 		Jogador dealer = new Jogador();
 		boolean jogadorVenceu = false;
 		boolean empate = false;
-		
 		boolean jogoAtivo = true;
 		
 		// Valor do saldo inicial do jogador
@@ -63,7 +62,7 @@ public class PartidaBlackjack {
 				System.out.println("Sua mão: \n" + cartasJogador.toString());
 				System.out.println("Total: " + cartasJogador.calcularValorDaMao() + '\n');
 				
-				System.out.println("Mão do dealer: \n" + cartasDealer.getCartas().get(0) + "\n");
+				System.out.println("Mão do dealer: \n" + cartasDealer.getCartas().get(0));
 				System.out.println("[carta escondida]\n");
 				
 				// Escolher entre continuar (Hit) ou parar
@@ -74,7 +73,7 @@ public class PartidaBlackjack {
 					if(escolha == 1) {
 						cartasJogador.adicionarCarta(baralhoRodada);
 						
-						// Conferir se mão "estourou"
+						// Conferir se mão do jogador "estourou"
 						if(cartasJogador.calcularValorDaMao() > 21) {
 							System.out.println("Sua mão: \n" + cartasJogador.toString());
 							System.out.println("Total: " + cartasJogador.calcularValorDaMao() + '\n');
@@ -93,31 +92,27 @@ public class PartidaBlackjack {
 			jogador.setPontos(cartasJogador.calcularValorDaMao());
 			dealer.setPontos(cartasDealer.calcularValorDaMao());
 			
-			
 			// Vez do dealer
-			// Mostrar cartas do dealer
-			System.out.println("Mão do dealer: \n" + cartasDealer.toString());
-			
-			// Comparar pontos do dealer e do jogador
-			if((dealer.getPontos() > jogador.getPontos()) && !fimDaPartida) {
-				fimDaPartida = true;
-			}
-	
 			// Enquanto o dealer tiver menos de 17 pontos deverá continuar recebendo cartas
 			while((dealer.getPontos() < 17) && !fimDaPartida){
 				cartasDealer.adicionarCarta(baralhoRodada);
 				dealer.setPontos(cartasDealer.calcularValorDaMao());
 			}
 			
-			// Mostrar pontos do dealer
+			// Mostrar cartas do dealer
+			System.out.println("Mão do dealer: \n" + cartasDealer.toString());
 			System.out.println("Total: " + dealer.getPontos());
 			
 			// Resultados
-			// Conferir se mão do dealer estourou
+			// Conferir se mão do dealer "estourou"
 			if((dealer.getPontos() > 21) && !fimDaPartida){
 				fimDaPartida = true;
 				jogadorVenceu = true;
-			}			
+			}	
+			// Conferir se dealer venceu por pontuação
+			else if((dealer.getPontos() > jogador.getPontos()) && !fimDaPartida) {
+				fimDaPartida = true;
+			}
 			// Conferir se empatou
 			else if((dealer.getPontos() == jogador.getPontos()) && !fimDaPartida){
 				fimDaPartida = true;
@@ -127,10 +122,6 @@ public class PartidaBlackjack {
 			else if((jogador.getPontos() > dealer.getPontos()) && !fimDaPartida){
 				fimDaPartida = true;
 				jogadorVenceu = true;
-			}
-			// Caso contrário, jogador perdeu
-			else {
-				fimDaPartida = true;
 			}
 
 			// Apresentando resultados
@@ -150,15 +141,14 @@ public class PartidaBlackjack {
 				System.out.println("Você e o dealer empataram. \n");
 			}
 			
-			// Reiniciando baralho e pontuação para nova partida
+			// Reiniciando baralho e resultados para nova partida
 			cartasJogador.reiniciarBaralho(baralhoRodada);
 			cartasDealer.reiniciarBaralho(baralhoRodada);
 			jogadorVenceu = false;
 			empate = false;
-			
 		}
-		// Fim do jogo
 		
+		// Fim do jogo		
 		if(jogador.getSaldo() == 0) {
 			System.out.println("Seu saldo acabou! \n");
 		}

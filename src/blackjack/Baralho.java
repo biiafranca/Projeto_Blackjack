@@ -8,16 +8,16 @@ import blackjack.Cartas.ValorCarta;
 
 public class Baralho {
 	
-	ArrayList<Cartas> cartas = new ArrayList<>();
+	private ArrayList<Cartas> cartas = new ArrayList<>();
 	
+	// GETTER
 	public ArrayList<Cartas> getCartas() {
 		return this.cartas;
 	}
 	
 	public void gerarBaralho() {
-		
+		// Laço para haver cartas de todos os valores e naipes
 		for(int posicaoNaipe = 0; posicaoNaipe < Cartas.NaipeCarta.quantidadeNaipes(); posicaoNaipe++) {
-			
 			for(int posicaoCarta = 0; posicaoCarta < Cartas.ValorCarta.quantidadeCartas(); posicaoCarta++) {
 
 				ValorCarta valorAtual = Cartas.ValorCarta.getValores(posicaoCarta);
@@ -30,12 +30,12 @@ public class Baralho {
 	}
 	
 	public void reiniciarBaralho(Baralho baralho) {
+		// Retira as cartas do baralho do jogador e envia de volta para o baralho principal
+		// Formato: baralhoOrigem.reiniciarBaralho(baralhoDestino)
 		int tamanhoBaralho = this.cartas.size();
-		
 		for (int i = 0; i < tamanhoBaralho; i++) {
 			baralho.cartas.add(this.cartas.get(i));
 		}
-		
 		for (int i = 0; i < tamanhoBaralho; i++) {
 			this.removerCarta(0);
 		}
@@ -52,20 +52,6 @@ public class Baralho {
 	public void adicionarCarta(Baralho baralho) {
 		cartas.add(baralho.cartas.get(0));
 		baralho.removerCarta(0);
-	}
-	
-	public Cartas sortearCarta() {
-		Cartas cartaSorteada = cartas.get(0);
-		removerCarta(0);
-		return cartaSorteada;
-	}
-	
-	public void entregarCarta(Baralho baralhoDestino, Cartas carta) {
-		baralhoDestino.cartas.add(carta);
-	}
-	
-	public int calcularTamanhoBaralho() {
-		return cartas.size();
 	}
 	
 	public int calcularValorDaMao() {
