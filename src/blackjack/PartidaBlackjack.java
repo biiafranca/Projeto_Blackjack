@@ -69,6 +69,12 @@ public class PartidaBlackjack {
 				System.out.println("Deseja (1)Continuar ou (2)Parar? \n");
 				int escolha = scanner.nextInt();
 				
+				while((escolha != 1) && (escolha != 2) ) {
+					System.out.println("Valor digitado inválido. \n");
+					System.out.println("Deseja (1)Continuar ou (2)Parar? \n");
+					escolha = scanner.nextInt();
+				}
+				
 				//// Continuar
 					if(escolha == 1) {
 						cartasJogador.adicionarCarta(baralhoRodada);
